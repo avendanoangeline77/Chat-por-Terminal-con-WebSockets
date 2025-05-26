@@ -30,41 +30,40 @@ async function startChat() {
     });
 
 
-    client.on("close", (code, reason) => {
-        if (code === 1001) {
-            console.log(chalk.red("\n[Servidor]: La conexión finalizó porque el servidor se cerró."));
-        }
-        rl.close();
-        process.exit(0);
-    });
-
-
-    client.on("error", (error) => {
-        console.error(chalk.red("Error de conexión:"), error);
-        process.exit(1);
-    });
-
-
-    async function readMessages() {
-        while (true) {
-            const message = await rl.question("");
-           
-            if (message.toLowerCase() === "/salir") {
-                client.close();
-                break;
+        client.on("close", (code, reason) => {
+            if (code === 1001) {
+                console.log(chalk.red("\n[Servidor]: La conexión finalizó porque el servidor se cerró."));
             }
-           
-            if (message.toLowerCase() === "/ayuda") {
-                console.log(chalk.cyan("Comandos disponibles:\n/salir - Salir del chat\n/ayuda - Mostrar ayuda"));
-                continue;
+            rl.close();
+            process.exit(0);
+        });
+
+
+        client.on("error", (error) => {
+            console.error(chalk.red("Error de conexión:"), error);
+            process.exit(1);
+        });
+
+
+        async function readMessages() {
+            while (true) {
+                const message = await rl.question("");
+            
+                if (message.toLowerCase() === "/salir") {
+                    client.close();
+                    break;
+                }
+            
+                if (message.toLowerCase() === "/ayuda") {
+                    console.log(chalk.cyan("Comandos disponibles:\n/salir - Salir del chat\n/ayuda - Mostrar ayuda"));
+                    continue;
+                }
+            
+                client.send(message);
             }
-           
-            client.send(message);
         }
-    }
-    readMessages();
+        readMessages();
 }
 
 
 startChat();
-
