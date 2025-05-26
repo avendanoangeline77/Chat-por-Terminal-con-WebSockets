@@ -86,7 +86,7 @@ function scheduleShutdown() {
 
 
 
-    // Enviar aviso único a todos los clientes
+    // Enviar aviso único a todos los clientes.
     broadcast(chalk.red("[Servidor]: El chat se cerrará en 10 minutos.\n"));
     console.log(chalk.red("Notificando cierre en 10 minutoss"));
 
